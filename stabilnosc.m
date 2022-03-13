@@ -1,0 +1,16 @@
+s=tf('s');
+C=pid(0.215702839392502,0.00162230995996931,0.01)
+G1=tf([0.5],[0.5 1])
+G2=tf([1],[0.7 1])
+G3=tf([3],[8 1])
+G4=tf([1],[10556001 740772 19494 22 1],'inputdelay',70)
+G5=tf([1],[0.027 1])
+S1=series(C,G1)
+S2=series(G2,G3)
+S3=series(S2,G4)
+S=series(S1,S3)
+U=feedback(S,G5)
+U1=pade(U,4)
+figure(1)
+nyquist(U1)
+grid on
